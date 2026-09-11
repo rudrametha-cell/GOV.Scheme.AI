@@ -1,0 +1,133 @@
+# SchemeMatch AI
+
+**"Right Scheme. Right Entrepreneur. Right Opportunity."**
+
+Smart India Hackathon Prototype — Problem Statement **SIH26092**
+Team **Protocol 6.9** · Karnavati University
+
+SchemeMatch AI is an explainable, rule-based government scheme discovery platform.
+An entrepreneur fills in a short profile, and the matching engine compares it against
+a prototype scheme dataset, scores every scheme, and explains — in plain language —
+why each one was (or wasn't) recommended.
+
+---
+
+## 1. Project overview
+
+- Entrepreneur enters age, gender, category, state, income, business type, stage and funding need.
+- The backend scores every scheme in `schemes.csv` against that profile using a transparent, weighted rule engine (not a black-box ML model).
+- Results are ranked, labeled (Highly Relevant / Good Match / Potential Match), and explained with human-readable reasons and a document checklist.
+- A single Python process starts the whole application, including — best effort — a supporting Java validation service.
+
+## 2. Technology stack
+
+| Layer | Technology |
+|---|---|
+| Backend / web server | Python 3 + Flask |
+| Matching engine | Python (`matcher.py`) |
+| Frontend | HTML5, CSS3, vanilla JavaScript |
+| Supporting service | Java (built-in `com.sun.net.httpserver`, no frameworks) |
+| Data | `schemes.csv` (prototype/demo data) |
+
+No database server, no API keys, no cloud services, no Docker.
+
+## 3. Architecture
+
+```
+USER
+  ↓
+HTML / CSS / JavaScript  (templates/, static/)
+  ↓
+FLASK  (app.py)
+  ↓
+PROFILE VALIDATION  →  Java service (java/SchemeService.java) if available,
+                        otherwise an equivalent Python fallback in app.py
+  ↓
+MATCHING ENGINE  (matcher.py)
+  ↓
+SCHEME DATASET  (schemes.csv)
+  ↓
+RANKING + EXPLANATIONS
+  ↓
+RESULTS PAGE  (templates/results.html)
+```
+
+`app.py` is the **single entry point**. On startup it:
+1. Starts the Flask web server.
+2. Loads the scheme dataset via `matcher.py`.
+3. Attempts to compile (if needed) and launch the Java validation service as a background process, polling briefly to confirm it came up.
+4. If Java can't be found, can't compile, or doesn't respond in time, it logs a warning and the whole app keeps running in **fallback mode** — Java is never required for the site to work.
+5. Serves the full frontend at `http://127.0.0.1:5000`.
+
+## 4. Installation (Windows)
+
+```
+pip install -r requirements.txt
+```
+
+A JDK is optional — only needed if you want the live Java validation service instead of fallback mode. `javac -version` in your terminal tells you if one is installed.
+
+## 5. How to run
+
+```
+python app.py
+```
+
+You'll see:
+
+```
+SchemeMatch AI
+Running at http://127.0.0.1:5000
+Java validation service: ONLINE / UNAVAILABLE (...)
+```
+
+Open **http://127.0.0.1:5000** in your browser. That's it — one command, one running application.
+
+## 6. How Java integration works
+
+`java/SchemeService.java` is a small HTTP service (Java's built-in `com.sun.net.httpserver`, no external libraries) that validates and normalizes a submitted profile — checking that gender, category, business type, stage and state are all recognized values, and that age/income/funding are sensible numbers.
+
+`app.py` calls it over HTTP at `http://127.0.0.1:8080/validate`. If that call fails for any reason (service not running, JDK missing, timeout), `app.py` immediately falls back to an identical validation routine written in Python — the user never sees a difference except a status indicator in the **About** section of the site.
+
+You never need to start Java yourself; `python app.py` attempts to compile and launch it automatically. If you want to run it manually for testing:
+
+```
+cd java
+javac SchemeService.java
+java SchemeService
+```
+
+## 7. How the matching algorithm works
+
+`matcher.py` implements an **explainable, rule-based weighted scoring engine** — not a trained machine-learning model. Every scheme is scored out of 100:
+
+| Factor | Points |
+|---|---|
+| Category match | 25 |
+| Gender match | 15 |
+| Business type match | 20 |
+| State match | 10 |
+| Income compatibility | 10 |
+| Business stage match | 10 |
+| Funding compatibility | 10 |
+
+Each point awarded (or withheld) generates a human-readable reason, so every score is fully explainable. These are **prototype scoring weights only** and do not represent official government eligibility rules.
+
+## 8. Using the demo profile
+
+Click **Try Demo Profile** on the form to auto-fill: Age 28, Female, SC, Gujarat, Income ₹3,00,000, Tailoring, New Business, Funding ₹2,00,000. Then click **Find My Schemes →**.
+
+## 9. Presenting to judges (under 60 seconds)
+
+1. Show the landing page and AI preview card.
+2. Click **Try Demo Profile**, then **Find My Schemes →** — narrate the short loading sequence.
+3. Point out the ranked results, match scores, and "Why this matches" reasons.
+4. Open **View Details** on the top match to show the full explanation and documents.
+5. Scroll to **About** and show the System Status card — explain Python, the matching engine, and Java's supporting role (and that Java failure never breaks the site).
+6. Close on the disclaimer: this is an indicative prototype, not official eligibility.
+
+## 10. Important notes
+
+- All scheme data in `schemes.csv` is prototype/demo data. Where an official source isn't verified, the UI says so explicitly.
+- Match scores are indicative only and are displayed with that disclaimer throughout the site.
+- No submitted profile data is stored — each request is processed in-memory for that session only.

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Something went wrong — SchemeMatch AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="navbar">
+  <div class="container navbar-inner">
+    <div class="brand">
+      <span class="brand-name">SchemeMatch AI</span>
+      <span class="brand-sub">Government Scheme Intelligence</span>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="empty-state">
+        <h3>We hit a snag.</h3>
+        <p>{{ message }}</p>
+        <a href="{{ url_for('home') }}" class="btn btn-primary">Back to Home</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="container footer-inner">
+    <div><strong>SchemeMatch AI</strong> · Smart India Hackathon Prototype</div>
+    <div>Team Protocol 6.9 · Karnavati University</div>
+  </div>
+</footer>
+</body>
+</html>

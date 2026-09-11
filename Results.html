@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Recommended Schemes — SchemeMatch AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="container navbar-inner">
+    <div class="brand">
+      <span class="brand-name">SchemeMatch AI</span>
+      <span class="brand-sub">Government Scheme Intelligence</span>
+    </div>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('home') }}#profile-form">Edit Profile</a></li>
+        <li><a href="{{ url_for('home') }}#about">About</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="results-hero">
+    <div class="container">
+      <span class="hero-badge">✦ AI-Powered Scheme Discovery</span>
+      <h1>Your Recommended Schemes</h1>
+      <p class="hero-sub">Based on the profile you provided, these schemes may be relevant to you.</p>
+
+      <div class="profile-summary-card">
+        <div class="summary-item"><div class="label">Category</div><div class="value">{{ profile.category }}</div></div>
+        <div class="summary-item"><div class="label">Gender</div><div class="value">{{ profile.gender }}</div></div>
+        <div class="summary-item"><div class="label">State</div><div class="value">{{ profile.state }}</div></div>
+        <div class="summary-item"><div class="label">Business</div><div class="value">{{ profile.business_type }}</div></div>
+        <div class="summary-item"><div class="label">Funding Required</div><div class="value">₹{{ '{:,}'.format(profile.funding_required) }}</div></div>
+      </div>
+      <a href="{{ url_for('home') }}#profile-form" class="btn btn-secondary edit-profile-btn">Edit Profile</a>
+    </div>
+  </section>
+
+  <section class="results-list container">
+    {% if has_matches %}
+      {% for scheme in recommendations %}
+      <article class="scheme-card"
+                data-scheme='{{ scheme | tojson | safe }}'>
+        <div class="scheme-card-top">
+          <div class="scheme-name-group">
+            {% if scheme.match_label == 'Highly Relevant' %}
+              <span class="badge badge-high">Highly Relevant</span>
+            {% elif scheme.match_label == 'Good Match' %}
+              <span class="badge badge-good">Good Match</span>
+            {% else %}
+              <span class="badge badge-potential">Potential Match</span>
+            {% endif %}
+            <h3>{{ scheme.scheme_name }}</h3>
+          </div>
+          <div class="score-block">
+            <div class="score-label">Match Score</div>
+            <div class="score-value">{{ scheme.match_score }}%</div>
+            <div class="progress-track"><div class="progress-fill score-bar" data-score="{{ scheme.match_score }}"></div></div>
+          </div>
+        </div>
+
+        <p class="scheme-desc">{{ scheme.description }}</p>
+
+        <div class="scheme-grid">
+          <div>
+            <h4>Why this matches</h4>
+            <ul>
+              {% for reason in scheme.reasons %}
+              <li class="reason">{{ reason }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div>
+            <h4>Required Documents</h4>
+            <ul>
+              {% for doc in scheme.documents %}
+              <li class="doc">{{ doc }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="scheme-card-footer">
+          {% if scheme.official_source.startswith('http') %}
+          <a href="{{ scheme.official_source }}" target="_blank" rel="noopener" class="view-details-btn">Official Source</a>
+          {% else %}
+          <span class="view-details-btn view-details-disabled">Official Source: Verify via portal</span>
+          {% endif %}
+          <button type="button" class="view-details-btn view-details-primary" data-action="view-details">View Details</button>
+        </div>
+      </article>
+      {% endfor %}
+    {% else %}
+      <div class="empty-state">
+        <h3>We couldn't find a strong match based on the current profile.</h3>
+        <p>You may still explore government scheme portals directly, or adjust your profile details and try again.</p>
+        <a href="{{ url_for('home') }}#profile-form" class="btn btn-primary">Update Profile</a>
+      </div>
+    {% endif %}
+  </section>
+
+  <div class="disclaimer">
+    <div class="container">
+      SchemeMatch AI provides indicative scheme discovery and matching assistance. Final eligibility, approval and application decisions are determined by the respective government authority and official scheme guidelines.
+    </div>
+  </div>
+</main>
+
+<!-- Scheme details modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close details">✕</button>
+    <h3 id="modalTitle"></h3>
+    <div class="modal-score" id="modalScore"></div>
+
+    <p id="modalDescription"></p>
+
+    <h4>Why you matched</h4>
+    <ul id="modalReasons"></ul>
+
+    <h4>Documents Required</h4>
+    <ul id="modalDocuments"></ul>
+
+    <h4>Official Source</h4>
+    <p id="modalSource"></p>
+
+    <div class="modal-note">
+      Match scores are indicative prototype recommendations and do not represent final government eligibility.
+    </div>
+
+    <a href="#" id="modalApplyLink" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:20px;">Apply / Learn More</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">SchemeMatch AI</div>
+        <p class="footer-tagline">"Right Scheme. Right Entrepreneur. Right Opportunity."</p>
+      </div>
+      <div class="footer-meta">
+        <div>Smart India Hackathon Prototype</div>
+        <div>Problem Statement: <strong>SIH26092</strong></div>
+        <div>Team: <strong>Protocol 6.9</strong></div>
+        <div>Karnavati University</div>
+      </div>
+    </div>
+    <p class="footer-disclaimer">SchemeMatch AI provides indicative scheme discovery and matching assistance only. Final eligibility, approval and application decisions are determined solely by the respective government authority and official scheme guidelines. This is a hackathon prototype and does not store submitted profile data permanently.</p>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
