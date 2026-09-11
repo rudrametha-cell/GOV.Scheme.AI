@@ -473,6 +473,58 @@
             justify-content: space-between;
         }
 
+        /* Document and Link Specific Enhancements */
+        .scheme-docs-box {
+            background: var(--slate-50);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+            margin: 12px 0;
+        }
+
+        .scheme-docs-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--slate-700);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .scheme-docs-list {
+            list-style: none;
+            font-size: 0.8rem;
+            color: var(--slate-600);
+        }
+
+        .scheme-docs-list li {
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .scheme-docs-list li::before {
+            content: "•";
+            color: var(--brand-primary);
+            font-weight: bold;
+        }
+
+        .scheme-official-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.825rem;
+            font-weight: 600;
+            color: var(--brand-primary);
+            text-decoration: none;
+            margin-top: 8px;
+        }
+
+        .scheme-official-link:hover {
+            text-decoration: underline;
+            color: var(--brand-hover);
+        }
+
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
@@ -976,10 +1028,31 @@
                             <div class="form-field full">
                                 <label id="lbl-state">State of Residence</label>
                                 <select id="inp-state">
+                                    <option value="All">All States / Central Schemes</option>
+                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chandigarh">Chandigarh</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
                                     <option value="Delhi">Delhi</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                    <option value="Jharkhand">Jharkhand</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
                                     <option value="Maharashtra">Maharashtra</option>
-                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="Odisha">Odisha</option>
+                                    <option value="Punjab">Punjab</option>
                                     <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="West Bengal">West Bengal</option>
                                 </select>
                             </div>
                         </div>
@@ -987,86 +1060,147 @@
 
                     <!-- Step 2 -->
                     <div class="wizard-step" id="step-2">
-                        <h2 id="step2-title" style="margin-bottom:8px; font-size:1.5rem;">Step 2: Financial & Employment Profile</h2>
-                        <p id="step2-subtitle" style="color:var(--slate-500); margin-bottom:24px; font-size:0.9rem;">Specify your current occupational status and income levels for credit targeting.</p>
+                        <h2 id="step2-title" style="margin-bottom:8px; font-size:1.5rem;">Step 2: Financial & Socio Status</h2>
+                        <p id="step2-subtitle" style="color:var(--slate-500); margin-bottom:24px; font-size:0.9rem;">Specify income level and social categories for reservation and credit subventions.</p>
                         
                         <div class="form-layout">
                             <div class="form-field">
-                                <label id="lbl-income">Annual Income (₹)</label>
-                                <input type="number" id="inp-income" placeholder="e.g. 250000" value="250000">
+                                <label id="lbl-income">Annual Family Income (₹)</label>
+                                <input type="number" id="inp-income" placeholder="e.g. 150000" value="150000">
                             </div>
                             <div class="form-field">
-                                <label id="lbl-occupation">Occupation</label>
-                                <select id="inp-occupation">
-                                    <option value="student" id="opt-occ-student">Student</option>
-                                    <option value="farmer" id="opt-occ-farmer">Farmer / Agriculture</option>
-                                    <option value="business" id="opt-occ-business">Small Business / MSME</option>
-                                    <option value="employed" id="opt-occ-employed">Salaried Employee</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="wizard-step" id="step-3">
-                        <h2 id="step3-title" style="margin-bottom:8px; font-size:1.5rem;">Step 3: Facility Category Preference</h2>
-                        <p id="step3-subtitle" style="color:var(--slate-500); margin-bottom:24px; font-size:0.9rem;">Choose the primary assistance type you are looking for.</p>
-                        
-                        <div class="form-layout">
-                            <div class="form-field full">
-                                <label id="lbl-category">Category Preference</label>
+                                <label id="lbl-category">Category</label>
                                 <select id="inp-category">
-                                    <option value="all" id="opt-cat-all">All Categories</option>
-                                    <option value="education" id="opt-cat-edu">Education & Scholarships</option>
-                                    <option value="credit" id="opt-cat-credit">Subsidized Credit & Loans</option>
-                                    <option value="healthcare" id="opt-cat-health">Healthcare & Insurance</option>
+                                    <option value="General">General</option>
+                                    <option value="OBC">OBC</option>
+                                    <option value="SC">SC</option>
+                                    <option value="ST">ST</option>
+                                    <option value="EWS">EWS</option>
+                                </select>
+                            </div>
+                            <div class="form-field full">
+                                <label id="lbl-occupation">Primary Occupation</label>
+                                <select id="inp-occupation">
+                                    <option value="Student">Student</option>
+                                    <option value="Farmer">Farmer / Agriculture Worker</option>
+                                    <option value="Entrepreneur">MSME / Small Business Owner</option>
+                                    <option value="Unemployed">Unemployed Youth</option>
+                                    <option value="Salaried">Salaried Worker</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Step 4: Results, Priority Order & Difference Table -->
-                    <div class="wizard-step" id="step-4">
-                        <h2 style="margin-bottom:8px; font-size:1.5rem;">Step 4: Matched Schemes & Priority Order</h2>
-                        <p style="color:var(--slate-500); margin-bottom:24px; font-size:0.9rem;">Here are schemes matched according to your profile details, priority ranking, and analytical metrics.</p>
+                    <!-- Step 3: Results -->
+                    <div class="wizard-step" id="step-3">
+                        <h2 id="step3-title" style="margin-bottom:8px; font-size:1.5rem;">Matched Government Schemes & Credit Options</h2>
+                        <p id="step3-subtitle" style="color:var(--slate-500); margin-bottom:16px; font-size:0.9rem;">Based on your inputs, here are verified government portals and subsidized loan programs matching your profile.</p>
 
-                        <div id="age-warning-container"></div>
-                        
-                        <h3 style="margin-top:20px; font-size:1.2rem;">Priority Order Ranked Schemes</h3>
-                        <div class="results-card-grid" id="results-grid"></div>
+                        <div id="age-warning" class="age-warning-banner" style="display: none;">
+                            ⚠️ Note: Age restrictions apply for certain youth or senior specific schemes based on your profile inputs.
+                        </div>
 
-                        <h3 style="margin-top:36px; font-size:1.2rem;">Scheme Difference & Profile Analytics Matrix</h3>
+                        <div id="results-container" class="results-card-grid"></div>
+
+                        <h3 style="margin-top: 36px; margin-bottom: 12px; font-size: 1.1rem; font-weight: 700;">Subsidized Financing Metric Breakdown</h3>
                         <div style="overflow-x:auto;">
                             <table class="comparison-table">
                                 <thead>
                                     <tr>
-                                        <th>Rank</th>
                                         <th>Scheme Name</th>
-                                        <th>Category</th>
-                                        <th>Max Benefit / Credit</th>
-                                        <th>Min Age Req.</th>
-                                        <th>Income Cap</th>
-                                        <th>Match Priority Score</th>
+                                        <th>Target Sector</th>
+                                        <th>Interest Subvention / Support</th>
+                                        <th>Max Loan Limit</th>
+                                        <th>Official Form / Portal</th>
                                     </tr>
                                 </thead>
-                                <tbody id="comparison-table-body">
-                                </tbody>
+                                <tbody id="comparison-tbody"></tbody>
                             </table>
                         </div>
                     </div>
 
-                    <!-- Wizard Footer Buttons -->
                     <div class="wizard-footer">
-                        <button id="btn-prev" class="btn btn-secondary" onclick="navigateWizard(-1)" style="visibility:hidden;">← Previous</button>
-                        <button id="btn-next" class="btn btn-primary" onclick="navigateWizard(1)">Next Step →</button>
+                        <button id="btn-prev" class="btn btn-outline" onclick="changeStep(-1)" style="display:none;">← Previous</button>
+                        <button id="btn-next" class="btn btn-primary" onclick="changeStep(1)" style="margin-left:auto;">Next Step →</button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- FLOATING AI CHATBOT INTERFACE -->
-    <div class="chatbot-trigger" onclick="toggleChatbot()" title="Ask SchemeMatch Assistant">💬</div>
+    <!-- EMI Calculator Modal -->
+    <div id="modal-loan-calc" class="modal-backdrop">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h3 class="modal-title">🏦 Subsidized Credit & Loan EMI Estimator</h3>
+                <button class="modal-close-btn" onclick="closeLoanCalculatorModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="calc-box">
+                    <div class="range-field">
+                        <div class="range-header">
+                            <span>Loan Principal (₹)</span>
+                            <span id="lbl-val-principal">₹ 2,00,000</span>
+                        </div>
+                        <input type="range" class="range-slider" id="rng-principal" min="10000" max="1000000" step="10000" value="200000" oninput="updateEmiCalc()">
+                    </div>
+
+                    <div class="range-field">
+                        <div class="range-header">
+                            <span>Effective Interest Rate (% p.a.)</span>
+                            <span id="lbl-val-rate">7.0 %</span>
+                        </div>
+                        <input type="range" class="range-slider" id="rng-rate" min="1" max="18" step="0.5" value="7" oninput="updateEmiCalc()">
+                    </div>
+
+                    <div class="range-field">
+                        <div class="range-header">
+                            <span>Tenure (Years)</span>
+                            <span id="lbl-val-tenure">5 Years</span>
+                        </div>
+                        <input type="range" class="range-slider" id="rng-tenure" min="1" max="20" step="1" value="5" oninput="updateEmiCalc()">
+                    </div>
+
+                    <div class="calc-result-grid">
+                        <div>
+                            <div class="calc-val" id="calc-emi">₹ 3,960</div>
+                            <div class="calc-lbl">Estimated Monthly EMI</div>
+                        </div>
+                        <div>
+                            <div class="calc-val" id="calc-interest">₹ 37,611</div>
+                            <div class="calc-lbl">Total Subsidized Interest</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Precheck Modal -->
+    <div id="modal-precheck" class="modal-backdrop">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h3 class="modal-title">⚡ Quick Eligibility Pre-Check</h3>
+                <button class="modal-close-btn" onclick="closePrecheckModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom:16px; font-size:0.9rem; color:var(--slate-600);">Check instant eligibility for high-priority central schemes directly without full onboarding.</p>
+                <div class="form-field" style="margin-bottom: 16px;">
+                    <label>Select Category</label>
+                    <select id="quick-cat">
+                        <option value="Student">Education / Scholarships</option>
+                        <option value="Farmer">Agricultural Subsidies</option>
+                        <option value="Entrepreneur">MSME / Business Loans</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" onclick="runQuickCheck()">Check Eligible Programs</button>
+                <div id="quick-results" style="margin-top:20px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Floating UI -->
+    <div class="chatbot-trigger" onclick="toggleChatbot()">💬</div>
 
     <div class="chatbot-container" id="chatbot-window">
         <div class="chat-header">
@@ -1074,425 +1208,345 @@
                 <div class="chat-avatar">AI</div>
                 <div class="chat-header-text">
                     <h4>SchemeMatch Assistant</h4>
-                    <p>Instant Scheme & Eligibility Helper</p>
+                    <p>Subsidized Credit & Policy Expert</p>
                 </div>
             </div>
-            <button class="modal-close-btn" style="position:static; background:transparent; color:#ffffff; width:auto; height:auto; font-size:1.5rem;" onclick="toggleChatbot()">&times;</button>
+            <button class="modal-close-btn" style="position:static; background:transparent; color:white;" onclick="toggleChatbot()">×</button>
         </div>
         <div class="chat-messages" id="chat-messages">
             <div class="chat-msg bot">
-                Hello! 👋 I can help you discover schemes, check loan eligibility, or guide you through required documents. What are you looking for today?
+                Hello! I can guide you through required documents, eligible subvention interest rates, or government application form links. How can I assist you today?
                 <div class="chat-quick-replies">
-                    <span class="chat-chip" onclick="handleQuickReply('Find student grants')">🎓 Student Grants</span>
-                    <span class="chat-chip" onclick="handleQuickReply('Business loan schemes')">💼 Business Loans</span>
-                    <span class="chat-chip" onclick="handleQuickReply('Healthcare benefits')">🏥 Healthcare</span>
+                    <span class="chat-chip" onclick="sendQuickReply('What documents are needed for Mudra Loan?')">Mudra Docs</span>
+                    <span class="chat-chip" onclick="sendQuickReply('How to calculate Loan EMI Subvention?')">EMI Subvention</span>
                 </div>
             </div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Type a message or question..." onkeypress="handleChatKeyPress(event)">
-            <button class="chat-send-btn" onclick="sendChatMessage()">➔</button>
+            <input type="text" id="chat-inp" placeholder="Type your query..." onkeypress="handleChatKeyPress(event)">
+            <button class="chat-send-btn" onclick="sendChatMessage()">➤</button>
         </div>
     </div>
 
-    <!-- QUICK ELIGIBILITY PRE-CHECK MODAL -->
-    <div id="modal-precheck" class="modal-backdrop">
-        <div class="modal-window">
-            <div class="modal-header">
-                <h3 class="modal-title">⚡ Quick Eligibility Pre-check</h3>
-                <button class="modal-close-btn" onclick="closeModal('modal-precheck')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p style="margin-bottom:16px; color:var(--slate-600);">Answer two quick questions to see immediate available facilities.</p>
-                <div class="form-field" style="margin-bottom:16px;">
-                    <label>Primary Need</label>
-                    <select id="modal-inp-need">
-                        <option value="student">Higher Education / Skill Support</option>
-                        <option value="business">Business Expansion Credit</option>
-                        <option value="healthcare">Medical Cover & Insurance</option>
-                    </select>
-                </div>
-                <button class="btn btn-primary" style="width:100%;" onclick="runQuickCheck()">Check Matching Schemes</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- LOAN EMI CALCULATOR MODAL -->
-    <div id="modal-loan-calc" class="modal-backdrop">
-        <div class="modal-window">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-calc-title">🏦 Subsidized Credit EMI Calculator</h3>
-                <button class="modal-close-btn" onclick="closeModal('modal-loan-calc')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="calc-box">
-                    <div class="range-field">
-                        <div class="range-header">
-                            <span id="lbl-calc-amt">Loan Amount</span>
-                            <span id="val-calc-amt">₹ 1,00,000</span>
-                        </div>
-                        <input type="range" class="range-slider" id="range-amt" min="10000" max="1000000" step="10000" value="100000" oninput="calculateEMI()">
-                    </div>
-                    <div class="range-field">
-                        <div class="range-header">
-                            <span id="lbl-calc-rate">Interest Rate (% p.a.)</span>
-                            <span id="val-calc-rate">7.0 %</span>
-                        </div>
-                        <input type="range" class="range-slider" id="range-rate" min="1" max="18" step="0.5" value="7" oninput="calculateEMI()">
-                    </div>
-                    <div class="range-field">
-                        <div class="range-header">
-                            <span id="lbl-calc-tenure">Tenure (Years)</span>
-                            <span id="val-calc-tenure">5 Years</span>
-                        </div>
-                        <input type="range" class="range-slider" id="range-tenure" min="1" max="20" step="1" value="5" oninput="calculateEMI()">
-                    </div>
-
-                    <div class="calc-result-grid">
-                        <div>
-                            <div class="calc-val" id="res-emi">₹ 1,980</div>
-                            <div class="calc-lbl">Estimated Monthly EMI</div>
-                        </div>
-                        <div>
-                            <div class="calc-val" id="res-interest">₹ 18,802</div>
-                            <div class="calc-lbl">Total Interest Payable</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <h3>SchemeMatch AI</h3>
-                    <p>Empowering citizens and micro-enterprises with AI-driven policy analytics, transparent subsidized credit matching, and instant eligibility discovery.</p>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <div class="brand-badge">SM</div>
+                        <span style="font-size:1.2rem; font-weight:800;">SchemeMatch AI</span>
+                    </div>
+                    <p>Empowering citizens and small business enterprises with precise government scheme discovery, direct form access, transparent document requirements, and subsidized credit calculations.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Quick Links</h4>
+                    <h4>Core Services</h4>
                     <ul>
-                        <li><a onclick="switchSection('home')">Home</a></li>
-                        <li><a onclick="switchSection('form')">Discover Facilities</a></li>
-                        <li><a onclick="openLoanCalculatorModal()">EMI Calculator</a></li>
+                        <li><a onclick="switchSection('form')">Subsidized Credit Search</a></li>
+                        <li><a onclick="openLoanCalculatorModal()">EMI Estimator</a></li>
+                        <li><a onclick="openPrecheckModal()">Quick Pre-Check</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Support & Policy</h4>
+                    <h4>Portals & Resources</h4>
                     <ul>
-                        <li><a>Privacy Policy</a></li>
-                        <li><a>Government Portals Directory</a></li>
-                        <li><a>Help Desk</a></li>
+                        <li><a href="https://www.myscheme.gov.in" target="_blank">MyScheme Portal</a></li>
+                        <li><a href="https://www.jansamarth.in" target="_blank">Jan Samarth Credit Portal</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                &copy; 2026 SchemeMatch AI Engine. All Rights Reserved. Verified Official Credit Standards.
+                <p>&copy; 2026 SchemeMatch AI Engine. All government policy specifications and loan interest metrics are updated periodically.</p>
             </div>
         </div>
     </footer>
 
-    <!-- SCRIPT APPLICATION LOGIC -->
+    <!-- App Logic Scripting -->
     <script>
-        /* ==========================================================================
-           DATA & DATABASE DEFINITIONS
-           ========================================================================== */
-        const schemesDatabase = [
+        let currentStep = 1;
+
+        // Scheme Database Extended with Required Documents and Official Links
+        const schemeDatabase = [
             {
-                id: "pm-mudra",
-                name: "PM MUDRA Yojana (Shishu & Kishor)",
-                category: "credit",
-                occupation: "business",
+                name: "Pradhan Mantri MUDRA Yojana (PMMY)",
+                category: "Entrepreneur",
                 minAge: 18,
+                maxAge: 65,
                 maxIncome: 1000000,
-                maxBenefit: "₹ 500,000 Credit Support",
-                score: 98,
-                desc: "Collateral-free subsidized micro-loans for setting up small enterprises or micro-business expansion."
+                subvention: "Subsidized Interest / Collateral Free",
+                maxLoan: "₹ 10 Lakhs",
+                documents: ["Aadhaar Card", "PAN Card", "Business Proof / Registration", "6-Month Bank Statement"],
+                officialLink: "https://www.mudra.org.in/"
             },
             {
-                id: "pm-vidyalaxmi",
-                name: "PM Vidyalaxmi Education Loan Scheme",
-                category: "education",
-                occupation: "student",
+                name: "PM-KISAN Credit Card (KCC) Scheme",
+                category: "Farmer",
+                minAge: 18,
+                maxAge: 75,
+                maxIncome: 2000000,
+                subvention: "2% Interest Subvention + 3% Prompt Repayment",
+                maxLoan: "₹ 3 Lakhs",
+                documents: ["Land Revenue Record / Khatauni", "Aadhaar Card", "Passport Size Photo", "Declaration Form"],
+                officialLink: "https://pmkisan.gov.in/"
+            },
+            {
+                name: "Central Sector Interest Subsidy (CSIS) Scholarship Loan",
+                category: "Student",
                 minAge: 16,
-                maxIncome: 800000,
-                maxBenefit: "Full Tuition Credit Subvention",
-                score: 95,
-                desc: "Subsidized higher education loans with moratorium periods and central interest subvention guarantees."
+                maxAge: 35,
+                maxIncome: 450000,
+                subvention: "100% Interest Subsidy during Moratorium",
+                maxLoan: "₹ 7.5 Lakhs",
+                documents: ["Income Certificate (<4.5 Lakhs)", "Admission Proof / Bonafide", "Class 10th/12th Marksheet", "Aadhaar Card"],
+                officialLink: "https://www.education.gov.in/interest-subsidy-scheme"
             },
             {
-                id: "pm-jay",
-                name: "Ayushman Bharat (PM-JAY)",
-                category: "healthcare",
-                occupation: "all",
-                minAge: 0,
+                name: "PM SVANidhi Micro Credit Scheme",
+                category: "Unemployed",
+                minAge: 18,
+                maxAge: 60,
                 maxIncome: 300000,
-                maxBenefit: "₹ 500,000 / Year Health Cover",
-                score: 92,
-                desc: "Health protection coverage covering secondary and tertiary hospitalisation for vulnerable families."
+                subvention: "7% Interest Subsidy",
+                maxLoan: "₹ 50,000",
+                documents: ["Vending Certificate / Urban Local Body Identity", "Aadhaar Card", "Bank Account Details"],
+                officialLink: "https://pmsvanidhi.mohua.gov.in/"
             },
             {
-                id: "standup-india",
-                name: "Stand-Up India Scheme for Entrepreneurs",
-                category: "credit",
-                occupation: "business",
-                minAge: 18,
-                maxIncome: 1500000,
-                maxBenefit: "₹ 1,00,00,000 Enterprise Credit",
-                score: 89,
-                desc: "Facilitates bank loans between 10 lakh and 1 Crore to SC/ST or Women borrowers for greenfield enterprises."
-            },
-            {
-                id: "post-matric-scholarship",
-                name: "Central Post-Matric Scholarship Program",
-                category: "education",
-                occupation: "student",
-                minAge: 15,
-                maxIncome: 250000,
-                maxBenefit: "₹ 20,000 / Year Academic Grant",
-                score: 87,
-                desc: "Financial assistance for post-secondary education to support students from lower-income brackets."
-            },
-            {
-                id: "pm-kisan-credit",
-                name: "PM Kisan Credit Card (KCC) Subvention",
-                category: "credit",
-                occupation: "farmer",
-                minAge: 18,
-                maxIncome: 600000,
-                maxBenefit: "4% Subsidized Agricultural Credit",
-                score: 85,
-                desc: "Provides farmers with timely credit for agricultural operations at low concessional interest rates."
+                name: "Credit Guarantee Scheme for Micro & Small Enterprises (CGTMSE)",
+                category: "Entrepreneur",
+                minAge: 21,
+                maxAge: 65,
+                maxIncome: 5000000,
+                subvention: "Collateral-free credit coverage up to 85%",
+                maxLoan: "₹ 2 Crores",
+                documents: ["MSME Udyam Registration", "Detailed Project Report (DPR)", "ITR Returns of 2 Years", "KYC Documents"],
+                officialLink: "https://www.cgtmse.in/"
             }
         ];
 
-        let currentStep = 1;
-
-        /* ==========================================================================
-           WIZARD NAVIGATION & CORE ENGINE
-           ========================================================================== */
-        function switchSection(section) {
-            document.getElementById('section-home').style.display = section === 'home' ? 'block' : 'none';
-            document.getElementById('section-form').style.display = section === 'form' ? 'block' : 'none';
-            document.getElementById('nav-home').classList.toggle('active', section === 'home');
-            document.getElementById('nav-form').classList.toggle('active', section === 'form');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        function switchSection(sectionId) {
+            document.getElementById('section-home').style.display = sectionId === 'home' ? 'block' : 'none';
+            document.getElementById('section-form').style.display = sectionId === 'form' ? 'block' : 'none';
+            
+            document.getElementById('nav-home').classList.toggle('active', sectionId === 'home');
+            document.getElementById('nav-form').classList.toggle('active', sectionId === 'form');
         }
 
-        function navigateWizard(direction) {
-            const nextStep = currentStep + direction;
-            if (nextStep < 1 || nextStep > 4) return;
+        function changeStep(dir) {
+            const nextStep = currentStep + dir;
+            if (nextStep < 1 || nextStep > 3) return;
 
             document.getElementById(`step-${currentStep}`).classList.remove('active');
             currentStep = nextStep;
             document.getElementById(`step-${currentStep}`).classList.add('active');
 
-            // Update progress bar
-            document.getElementById('wizard-progress').style.width = `${(currentStep / 4) * 100}%`;
-
-            // Button controls
-            document.getElementById('btn-prev').style.visibility = currentStep === 1 ? 'hidden' : 'visible';
-            const btnNext = document.getElementById('btn-next');
+            document.getElementById('wizard-progress').style.width = `${(currentStep / 3) * 100}%`;
+            document.getElementById('btn-prev').style.display = currentStep > 1 ? 'inline-flex' : 'none';
+            
             if (currentStep === 3) {
-                btnNext.innerText = 'Generate Scheme Match Results ➔';
-            } else if (currentStep === 4) {
-                btnNext.style.display = 'none';
+                document.getElementById('btn-next').style.display = 'none';
                 renderResults();
             } else {
-                btnNext.style.display = 'inline-flex';
-                btnNext.innerText = 'Next Step →';
+                document.getElementById('btn-next').style.display = 'inline-flex';
+                document.getElementById('btn-next').innerText = currentStep === 2 ? 'Find Matched Schemes →' : 'Next Step →';
             }
-        }
-
-        function autofillDemo() {
-            document.getElementById('inp-age').value = "22";
-            document.getElementById('inp-gender').value = "female";
-            document.getElementById('inp-income').value = "200000";
-            document.getElementById('inp-occupation').value = "student";
-            document.getElementById('inp-category').value = "education";
-            switchSection('form');
         }
 
         function renderResults() {
-            const age = parseInt(document.getElementById('inp-age').value) || 0;
-            const income = parseInt(document.getElementById('inp-income').value) || 0;
-            const occ = document.getElementById('inp-occupation').value;
-            const cat = document.getElementById('inp-category').value;
+            const age = parseInt(document.getElementById('inp-age').value) || 25;
+            const income = parseInt(document.getElementById('inp-income').value) || 150000;
+            const occupation = document.getElementById('inp-occupation').value;
 
-            const warningContainer = document.getElementById('age-warning-container');
-            warningContainer.innerHTML = '';
-            if (age < 18) {
-                warningContainer.innerHTML = `<div class="age-warning-banner">⚠️ Note: Age entered is under 18. Some credit schemes require adult cosigners or legal guardians.</div>`;
-            }
+            const resultsContainer = document.getElementById('results-container');
+            const comparisonTbody = document.getElementById('comparison-tbody');
+            
+            resultsContainer.innerHTML = '';
+            comparisonTbody.innerHTML = '';
 
-            // Simple Filter Logic
-            const filtered = schemesDatabase.filter(s => {
-                const catMatch = cat === 'all' || s.category === cat;
-                const occMatch = s.occupation === 'all' || s.occupation === occ;
-                const incMatch = income <= s.maxIncome;
-                return catMatch && occMatch && incMatch;
+            let hasAgeWarning = false;
+
+            const filteredSchemes = schemeDatabase.filter(scheme => {
+                const matchCategory = scheme.category === occupation || scheme.category === "Entrepreneur" || occupation === "Salaried";
+                const matchIncome = income <= scheme.maxIncome;
+                const matchAge = age >= scheme.minAge && age <= scheme.maxAge;
+
+                if (!matchAge && matchCategory) hasAgeWarning = true;
+
+                return matchCategory && matchIncome && matchAge;
             });
 
-            // Grid Render
-            const grid = document.getElementById('results-grid');
-            grid.innerHTML = '';
-            if (filtered.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; color: var(--slate-500);">No specific direct scheme matched your criteria. Try adjusting income or occupation filters.</p>';
-            } else {
-                filtered.forEach(s => {
-                    grid.innerHTML += `
-                        <div class="scheme-card">
-                            <div>
-                                <span class="scheme-badge">${s.category.toUpperCase()}</span>
-                                <h4 style="margin:10px 0 6px; font-size:1.05rem;">${s.name}</h4>
-                                <p style="font-size:0.825rem; color:var(--slate-600); margin-bottom:12px;">${s.desc}</p>
-                            </div>
-                            <div>
-                                <div style="font-weight:700; color:var(--brand-primary); font-size:0.9rem; margin-bottom:10px;">${s.maxBenefit}</div>
-                                <button class="btn btn-secondary btn-sm" style="width:100%;" onclick="openLoanCalculatorModal()">Calculate EMI / Details</button>
-                            </div>
-                        </div>
-                    `;
-                });
+            document.getElementById('age-warning').style.display = hasAgeWarning ? 'block' : 'none';
+
+            if (filteredSchemes.length === 0) {
+                resultsContainer.innerHTML = `<p style="grid-column: span 2; color:var(--slate-500);">No specific direct schemes found matching your precise age/income profile. Try adjusting your parameters.</p>`;
+                return;
             }
 
-            // Table Render
-            const tbody = document.getElementById('comparison-table-body');
-            tbody.innerHTML = '';
-            filtered.forEach((s, idx) => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td><strong>#${idx + 1}</strong></td>
-                        <td>${s.name}</td>
-                        <td style="text-transform:capitalize;">${s.category}</td>
-                        <td>${s.maxBenefit}</td>
-                        <td>${s.minAge}+ Yrs</td>
-                        <td>₹ ${(s.maxIncome).toLocaleString()}</td>
-                        <td><span style="color:var(--emerald-600); font-weight:700;">${s.score}% Match</span></td>
-                    </tr>
+            filteredSchemes.forEach(scheme => {
+                // Card Rendering
+                const card = document.createElement('div');
+                card.className = 'scheme-card';
+
+                let docsListHtml = scheme.documents.map(doc => `<li>${doc}</li>`).join('');
+
+                card.innerHTML = `
+                    <div>
+                        <span class="scheme-badge">${scheme.category}</span>
+                        <h4 style="margin: 10px 0 6px 0; font-size:1.05rem; color:var(--slate-950);">${scheme.name}</h4>
+                        <p style="font-size:0.8rem; color:var(--slate-600); margin-bottom:8px;"><strong>Support:</strong> ${scheme.subvention}</p>
+                        <p style="font-size:0.8rem; color:var(--slate-600);"><strong>Max Limit:</strong> ${scheme.maxLoan}</p>
+                        
+                        <div class="scheme-docs-box">
+                            <div class="scheme-docs-title">📄 Required Documents</div>
+                            <ul class="scheme-docs-list">
+                                ${docsListHtml}
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="${scheme.officialLink}" target="_blank" class="scheme-official-link">
+                            🔗 Official Portal & Form Link →
+                        </a>
+                    </div>
                 `;
+                resultsContainer.appendChild(card);
+
+                // Table Row Rendering
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="font-weight:600;">${scheme.name}</td>
+                    <td>${scheme.category}</td>
+                    <td>${scheme.subvention}</td>
+                    <td>${scheme.maxLoan}</td>
+                    <td><a href="${scheme.officialLink}" target="_blank" style="color:var(--brand-primary); font-weight:600; text-decoration:none;">Apply / Portal Link ↗</a></td>
+                `;
+                comparisonTbody.appendChild(row);
             });
         }
 
-        /* ==========================================================================
-           MODALS & EMI CALCULATOR LOGIC
-           ========================================================================== */
+        function autofillDemo() {
+            switchSection('form');
+            document.getElementById('inp-age').value = '24';
+            document.getElementById('inp-income').value = '180000';
+            document.getElementById('inp-occupation').value = 'Entrepreneur';
+            changeStep(1);
+        }
+
+        // Loan EMI Calculator
         function openLoanCalculatorModal() {
             document.getElementById('modal-loan-calc').classList.add('active');
-            calculateEMI();
+            updateEmiCalc();
         }
 
-        function openPrecheckModal() {
-            document.getElementById('modal-precheck').classList.add('active');
+        function closeLoanCalculatorModal() {
+            document.getElementById('modal-loan-calc').classList.remove('active');
         }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
+        function updateEmiCalc() {
+            const P = parseFloat(document.getElementById('rng-principal').value);
+            const annualRate = parseFloat(document.getElementById('rng-rate').value);
+            const years = parseInt(document.getElementById('rng-tenure').value);
 
-        function runQuickCheck() {
-            const need = document.getElementById('modal-inp-need').value;
-            closeModal('modal-precheck');
-            switchSection('form');
-            document.getElementById('inp-category').value = need === 'business' ? 'credit' : (need === 'student' ? 'education' : 'healthcare');
-            navigateWizard(3 - currentStep);
-        }
+            document.getElementById('lbl-val-principal').innerText = `₹ ${P.toLocaleString('en-IN')}`;
+            document.getElementById('lbl-val-rate').innerText = `${annualRate.toFixed(1)} %`;
+            document.getElementById('lbl-val-tenure').innerText = `${years} Years`;
 
-        function calculateEMI() {
-            const P = parseFloat(document.getElementById('range-amt').value);
-            const r = parseFloat(document.getElementById('range-rate').value) / 12 / 100;
-            const n = parseFloat(document.getElementById('range-tenure').value) * 12;
-
-            document.getElementById('val-calc-amt').innerText = `₹ ${P.toLocaleString()}`;
-            document.getElementById('val-calc-rate').innerText = `${document.getElementById('range-rate').value} %`;
-            document.getElementById('val-calc-tenure').innerText = `${document.getElementById('range-tenure').value} Years`;
+            const r = annualRate / 12 / 100;
+            const n = years * 12;
 
             const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-            const totalPayable = emi * n;
-            const totalInterest = totalPayable - P;
+            const totalPayment = emi * n;
+            const totalInterest = totalPayment - P;
 
-            document.getElementById('res-emi').innerText = `₹ ${Math.round(emi).toLocaleString()}`;
-            document.getElementById('res-interest').innerText = `₹ ${Math.round(totalInterest).toLocaleString()}`;
+            document.getElementById('calc-emi').innerText = `₹ ${Math.round(emi).toLocaleString('en-IN')}`;
+            document.getElementById('calc-interest').innerText = `₹ ${Math.round(totalInterest).toLocaleString('en-IN')}`;
         }
 
-        /* ==========================================================================
-           LANGUAGE SUPPORT
-           ========================================================================== */
+        // Quick Precheck Modal
+        function openPrecheckModal() { document.getElementById('modal-precheck').classList.add('active'); }
+        function closePrecheckModal() { document.getElementById('modal-precheck').classList.remove('active'); }
+
+        function runQuickCheck() {
+            const cat = document.getElementById('quick-cat').value;
+            const matches = schemeDatabase.filter(s => s.category === cat);
+            const resDiv = document.getElementById('quick-results');
+            
+            if(matches.length > 0) {
+                resDiv.innerHTML = matches.map(m => `
+                    <div style="padding:10px; background:var(--slate-100); border-radius:6px; margin-bottom:8px; font-size:0.85rem;">
+                        <strong>${m.name}</strong><br>
+                        <span>Limit: ${m.maxLoan} | <a href="${m.officialLink}" target="_blank" style="color:var(--brand-primary);">Official Link</a></span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Chatbot UI Handler
+        function toggleChatbot() {
+            document.getElementById('chatbot-window').classList.toggle('active');
+        }
+
+        function handleChatKeyPress(e) {
+            if (e.key === 'Enter') sendChatMessage();
+        }
+
+        function sendQuickReply(text) {
+            document.getElementById('chat-inp').value = text;
+            sendChatMessage();
+        }
+
+        function sendChatMessage() {
+            const inp = document.getElementById('chat-inp');
+            const msg = inp.value.trim();
+            if (!msg) return;
+
+            const chatMessages = document.getElementById('chat-messages');
+
+            // User Message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-msg user';
+            userMsg.innerText = msg;
+            chatMessages.appendChild(userMsg);
+
+            inp.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Bot Response Simulation
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'chat-msg bot';
+                
+                if (msg.toLowerCase().includes('mudra') || msg.toLowerCase().includes('doc')) {
+                    botMsg.innerHTML = `For Mudra Loan, standard documents needed are:<br>• Aadhaar & PAN Card<br>• Proof of business/Udyam Registration<br>• 6 Months Bank Statement<br><a href="https://www.mudra.org.in/" target="_blank" style="color:var(--brand-primary); font-weight:600;">Visit Mudra Official Form Portal ↗</a>`;
+                } else {
+                    botMsg.innerText = "I have recorded your query. You can explore exact scheme document requirements and official application links directly using the 'Discover Facilities' wizard!";
+                }
+
+                chatMessages.appendChild(botMsg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 600);
+        }
+
+        // Language Translation Handler
         function changeLanguage(lang) {
             if (lang === 'hi') {
                 document.getElementById('txt-logo').innerText = "स्कीममैच AI";
-                document.getElementById('hero-title').innerHTML = "स्मार्ट नीति खोज और सब्सिडीयुक्त<br>ऋण वित्तपोषण सुविधाएँ";
-                document.getElementById('hero-subtitle').innerText = "पारदर्शी अवधि, ब्याज सहायता मेट्रिक्स और दस्तावेज़ तैयारी चेकलिस्ट के साथ सरकारी छात्रवृत्ति, चिकित्सा सुरक्षा कार्यक्रमों की खोज करें।";
+                document.getElementById('hero-title').innerHTML = "स्मार्ट नीति खोज और रियायती<br>ऋण वित्तपोषण सुविधाएं";
+                document.getElementById('hero-subtitle').innerText = "पारदर्शी अवधि, ब्याज छूट मीट्रिक और दस्तावेज तैयारी चेकलिस्ट के साथ सरकारी छात्रवृत्ति, चिकित्सा सुरक्षा कार्यक्रमों और रियायती ऋण योजनाओं की खोज करें।";
                 document.getElementById('btn-explore').innerText = "पात्र सुविधाओं का अन्वेषण करें →";
-                document.getElementById('btn-quick-check').innerText = "⚡ त्वरित पात्रता पॉप-अप";
+                document.getElementById('btn-calc').innerText = "🧮 रियायती ऋण EMI कैलकुलेटर";
+                document.getElementById('lbl-age').innerText = "आयु (Age)";
+                document.getElementById('lbl-gender').innerText = "लिंग (Gender)";
+                document.getElementById('lbl-state').innerText = "निवास का राज्य (State)";
             } else {
                 document.getElementById('txt-logo').innerText = "SchemeMatch AI";
                 document.getElementById('hero-title').innerHTML = "Smart Policy Discovery & Subsidized<br>Loan Financing Facilities";
                 document.getElementById('hero-subtitle').innerText = "Discover government scholarships, medical protection programs, and subsidized loan schemes with transparent tenure, interest subvention metrics, and document preparation checklists.";
                 document.getElementById('btn-explore').innerText = "Explore Eligible Facilities →";
-                document.getElementById('btn-quick-check').innerText = "⚡ Quick Eligibility Pop-up";
-            }
-        }
-
-        /* ==========================================================================
-           FLOATING AI CHATBOT SYSTEM ENGINE
-           ========================================================================== */
-        function toggleChatbot() {
-            const chatWin = document.getElementById('chatbot-window');
-            chatWin.classList.toggle('active');
-        }
-
-        function handleChatKeyPress(e) {
-            if (e.key === 'Enter') {
-                sendChatMessage();
-            }
-        }
-
-        function handleQuickReply(text) {
-            document.getElementById('chat-input').value = text;
-            sendChatMessage();
-        }
-
-        function sendChatMessage() {
-            const input = document.getElementById('chat-input');
-            const text = input.value.trim();
-            if (!text) return;
-
-            const messagesContainer = document.getElementById('chat-messages');
-
-            // Render User Message
-            const userMsg = document.createElement('div');
-            userMsg.className = 'chat-msg user';
-            userMsg.innerText = text;
-            messagesContainer.appendChild(userMsg);
-
-            input.value = '';
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-            // Generate Bot Response after short delay
-            setTimeout(() => {
-                const botMsg = document.createElement('div');
-                botMsg.className = 'chat-msg bot';
-                botMsg.innerHTML = getBotReply(text);
-                messagesContainer.appendChild(botMsg);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 500);
-        }
-
-        function getBotReply(query) {
-            const q = query.toLowerCase();
-
-            if (q.includes('student') || q.includes('education') || q.includes('grant')) {
-                return `We have excellent options for students! For higher education, <strong>PM Vidyalaxmi</strong> provides full tuition credit subvention. Would you like me to autofill the wizard for a Student profile?
-                <div class="chat-quick-replies"><span class="chat-chip" onclick="autofillDemo()">Autofill Student Profile</span></div>`;
-            } else if (q.includes('loan') || q.includes('business') || q.includes('credit')) {
-                return `For small business and MSMEs, <strong>PM MUDRA Yojana</strong> offers up to ₹ 5,00,000 collateral-free credit support. You can also calculate your monthly repayment using our <a style="color:var(--brand-primary); cursor:pointer;" onclick="openLoanCalculatorModal()">EMI Calculator</a>.`;
-            } else if (q.includes('health') || q.includes('medical') || q.includes('insurance')) {
-                return `The flagship <strong>Ayushman Bharat (PM-JAY)</strong> provides up to ₹ 5,00,000 yearly medical protection coverage per family.`;
-            } else {
-                return `I am here to assist with government scheme discovery and loan eligibility. Try selecting your category in the Discovery Wizard or open our EMI tool!`;
+                document.getElementById('btn-calc').innerText = "🧮 Open Subsidized Loan EMI Pop-up";
+                document.getElementById('lbl-age').innerText = "Age";
+                document.getElementById('lbl-gender').innerText = "Gender";
+                document.getElementById('lbl-state').innerText = "State of Residence";
             }
         }
     </script>
